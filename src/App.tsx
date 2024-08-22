@@ -68,7 +68,7 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters}) => {
       }else{
         setWeights({...weights, [index]: val})
       }
-    }
+    }s
   }
 
   const onWeightBlur = (index: number) => {
