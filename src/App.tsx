@@ -1,6 +1,19 @@
 import React, {ChangeEvent, FC, useState} from 'react'
 import './App.css'
-import {Button, Checkbox, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, Typography} from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  FormGroup,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
 
 interface VoteData {
   [rating: number]: number
@@ -63,9 +76,9 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters}) => {
     const re = /^\d*[.,]?\d*$/;
 
     if (val === '' || re.test(val)) {
-      if(mirrorWeights){
-        setWeights({...weights, [5-index]: val, [index]: val})
-      }else{
+      if (mirrorWeights) {
+        setWeights({...weights, [5 - index]: val, [index]: val})
+      } else {
         setWeights({...weights, [index]: val})
       }
     }
@@ -75,9 +88,9 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters}) => {
     const currentVal = weights[index]
 
     if (currentVal.length === 0) {
-      if(mirrorWeights){
-        setWeights({...weights, [5-index]: "1", [index]: "1"})
-      }else{
+      if (mirrorWeights) {
+        setWeights({...weights, [5 - index]: "1", [index]: "1"})
+      } else {
         setWeights({...weights, [index]: "1"})
       }
     }
@@ -119,12 +132,16 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters}) => {
   }
 
   return <>
-    <Checkbox value={mirrorWeights} checked={mirrorWeights} onChange={(event)=>setMirrorWeights(event.target.checked)}/>
+    <FormGroup>
+      <FormControlLabel
+          control={<Checkbox value={mirrorWeights} checked={mirrorWeights} onChange={(event) => setMirrorWeights(event.target.checked)}/>}
+          label="Wichtung spiegeln"/>
+    </FormGroup>
     {["S", "A", "B", "C", "D", "F"].map((item, index) => (
         <div key={item}>
           <Stack direction={"row"} spacing={2}>
             <TextField value={String(weights[index])} onChange={(event) => onWeightChange(event, index)}
-                       onBlur={() => onWeightBlur(index)} disabled={mirrorWeights&&index>2}/>
+                       onBlur={() => onWeightBlur(index)} disabled={mirrorWeights && index > 2}/>
             <InputLabel>{item}</InputLabel>
             <Button onClick={() => onButton(-1, index)} disabled={voteData[index] == undefined || voteData[index] == 0}>-1</Button>
             <Select
@@ -140,7 +157,8 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters}) => {
         </div>
     ))}
     <Button onClick={() => setVoteDate({})}>Reset</Button>
-    <Typography>{calculateRating()}</Typography>
+    <Divider/>
+    <Typography>Rating: {calculateRating()}</Typography>
   </>
 }
 
