@@ -39,6 +39,11 @@ function App() {
         <TextField value={numberOfVoters} onChange={handleVotersChange} label={"Teilnehmer"}/>
 
         {numberOfVoters !== 0 && <DisplayVotes numberOfVoters={numberOfVoters}/>}
+
+
+        <footer>
+        <Typography>Git repo: <a href={"https://github.com/plimplom/tierlist"}>https://github.com/plimplom/tierlist</a></Typography>
+        </footer>
       </>
   )
 }
