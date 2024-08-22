@@ -13,6 +13,12 @@ function App() {
   const handleVotersChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const re = /^[0-9\b]+$/;
 
+    // if (false) {
+    //   ({});
+    // }
+
+    console.log(setWeights)
+
     // if value is not blank, then test the regex
 
     if (event.target.value === '' || re.test(event.target.value)) {
@@ -41,8 +47,9 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters, weights}) => {
 
   for (const voteDataKey in voteData) {
     console.log(voteData, voteDataKey)
-    rating += voteData[voteDataKey] * voteDataKey
+    rating += voteData[voteDataKey] * Number(voteDataKey)
     total += voteData[voteDataKey]
+    console.log(weights)
   }
 
   const handleChange = (event: SelectChangeEvent, index: number) => {
@@ -79,7 +86,7 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters, weights}) => {
         </div>
     ))}
     <Button onClick={() => setVoteDate({})}>Reset</Button>
-    <Typography>{rating/total}</Typography>
+    <Typography>{rating / total}</Typography>
   </>
 }
 
