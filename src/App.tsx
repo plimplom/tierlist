@@ -42,7 +42,7 @@ function App() {
 
 
         <footer>
-        <Typography>Git repo: <a href={"https://github.com/plimplom/tierlist"}>https://github.com/plimplom/tierlist</a></Typography>
+          <Typography>Git repo: <a href={"https://github.com/plimplom/tierlist"}>https://github.com/plimplom/tierlist</a></Typography>
         </footer>
       </>
   )
@@ -126,14 +126,14 @@ const DisplayVotes: FC<DisplayVotesProps> = ({numberOfVoters}) => {
 
     for (const voteDataKey in voteData) {
       const numVotes = Number(voteData[voteDataKey])
-      const weight = Number(weights[Number(voteDataKey) + 1].replace(",", "."))
+      const weight = Number(weights[Number(voteDataKey)].replace(",", "."))
 
       voteWeight += numVotes * weight
-      rating += numVotes * weight * (Number(voteDataKey) + 1)
+      rating += numVotes * weight * (Number(voteDataKey))
     }
 
     const res = rating / voteWeight
-    return isNaN(res) || !isFinite(res) ? "-" : mapToRating(res)
+    return isNaN(res) || !isFinite(res) ? "-" : mapToRating(res + 1)
   }
 
   return <>
